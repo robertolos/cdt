@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Ontology rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#guest_students -->
+
+    <ObjectProperty rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#guest_students"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Area -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Area">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Inside"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Course_Area -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Course_Area">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#courses"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Fire_Condition -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Fire_Condition">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#hot"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Inside -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Inside">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Location"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Location -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Location"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_Topic -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_Topic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#academic_news"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_source -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_source">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#academic_news"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Outside -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Outside">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Location"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Role -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Role"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Smoke_Alarm_Condition -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Smoke_Alarm_Condition"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Temperature -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Temperature"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Time -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Time"/>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#academic_news -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#academic_news">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#building -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#building">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Area"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#cold -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#cold">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Temperature"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#courses -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#courses">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#danger -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#danger">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Fire_Condition"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#event -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#event">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#food -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#food">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#forums -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#forums">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_source"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#guest -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#guest">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Role"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#hot -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#hot">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Temperature"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#ict -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#ict">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Course_Area"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#info -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#info">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#low_risk -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#low_risk">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Fire_Condition"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#math -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#math">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Course_Area"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#no_smoke -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#no_smoke">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Smoke_Alarm_Condition"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#normal_temp -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#normal_temp">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Temperature"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#official -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#official">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#News_source"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#phys -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#phys">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Course_Area"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#room -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#room">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Area"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#smoke -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#smoke">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Smoke_Alarm_Condition"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#student -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#student">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Role"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#students -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#students">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Interest_Topic"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#teacher -->
+
+    <Class rdf:about="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#teacher">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2#Role"/>
+    </Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
