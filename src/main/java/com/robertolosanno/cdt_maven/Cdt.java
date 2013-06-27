@@ -42,6 +42,7 @@ import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
+import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -51,11 +52,14 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
-import edu.uci.ics.jung.algorithms.layout.PolarPoint;
-import edu.uci.ics.jung.algorithms.layout.RadialTreeLayout;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
+import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.graph.DelegateForest;
+import edu.uci.ics.jung.graph.SparseMultigraph;
+import edu.uci.ics.jung.graph.Tree;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.io.graphml.GraphMetadata.EdgeDefault;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationServer;
@@ -84,7 +88,8 @@ public class Cdt extends JApplet {
     /**
      * the graph
      */
-    Forest<String,String> graph;
+//    SparseMultigraph<String,String> graph;
+	Tree<String,String> graph;
 	Factory<String> edgeFactory = new Factory<String>() {
 		int i=0;
 		public String create() {
@@ -98,7 +103,6 @@ public class Cdt extends JApplet {
     VisualizationServer.Paintable rings;
     String root;
     TreeLayout<String,String> treeLayout;
-    RadialTreeLayout<String,String> radialLayout;
 
     public Cdt() {
     	//Ontologia
@@ -106,32 +110,26 @@ public class Cdt extends JApplet {
 		loadModel(m);
 		ExtendedIterator<OntClass> iter = m.listHierarchyRootClasses();
 		
-        // create a simple graph for the demo
-        graph = new DelegateForest<String,String>();
-
+        // create a simple graph
+        graph = new DelegateTree<String,String>();
+        
         createTree(iter);
         
+        //Vincoli
+        System.out.println("--- CONSTRAINTS ---");
+        ExtendedIterator<ObjectProperty> iterProp=m.listObjectProperties();
+        while(iterProp.hasNext()){
+        	ObjectProperty objProp=iterProp.next();
+        	
+        	plotConstraint(objProp.getDomain().getURI(),objProp.getRange().getURI());
+        }
+        
         treeLayout = new TreeLayout<String,String>(graph);
-        radialLayout = new RadialTreeLayout<String,String>(graph);
-        radialLayout.setSize(new Dimension(1200,600));
         vv =  new VisualizationViewer<String,String>(treeLayout, new Dimension(1200,600));
         vv.setBackground(Color.white);
         vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
-//        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-        // add a listener for ToolTips
-//        vv.setVertexToolTipTransformer(new ToStringLabeller());
         vv.getRenderContext().setArrowFillPaintTransformer(new ConstantTransformer(Color.lightGray));
         
-        rings = new Rings();
-        
-
-//        	    Transformer<String, String> transformer = new Transformer<String, String>() {
-//        	        @Override public String transform(String arg0) { return arg0; }
-//        	      };
-//        	      vv.getRenderContext().setEdgeLabelTransformer(transformer);
-        	      
-        	      
-        	        
         
 		//***************** MODIFICA COLORE VERTICE ************************
         Transformer<String,Paint> vertexColor = new Transformer<String,Paint>() {
@@ -195,9 +193,6 @@ public class Cdt extends JApplet {
 				Font font = new Font("Arial Unicode MS", Font.PLAIN, 11);
 				return font;
 			}});
-        
-
-        
      
 
         
@@ -247,71 +242,18 @@ public class Cdt extends JApplet {
             }
         });
         
-        JToggleButton radial = new JToggleButton("Radial");
-        radial.addItemListener(new ItemListener() {
-
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange() == ItemEvent.SELECTED) {
-					
-					LayoutTransition<String,String> lt =
-						new LayoutTransition<String,String>(vv, treeLayout, radialLayout);
-					Animator animator = new Animator(lt);
-					animator.start();
-					vv.getRenderContext().getMultiLayerTransformer().setToIdentity();
-					vv.addPreRenderPaintable(rings);
-				} else {
-					LayoutTransition<String,String> lt =
-						new LayoutTransition<String,String>(vv, radialLayout, treeLayout);
-					Animator animator = new Animator(lt);
-					animator.start();
-					vv.getRenderContext().getMultiLayerTransformer().setToIdentity();
-					vv.removePreRenderPaintable(rings);
-				}
-				vv.repaint();
-			}});
-
+        
         JPanel scaleGrid = new JPanel(new GridLayout(1,0));
         scaleGrid.setBorder(BorderFactory.createTitledBorder("Zoom"));
 
         JPanel controls = new JPanel();
         scaleGrid.add(plus);
         scaleGrid.add(minus);
-        controls.add(radial);
         controls.add(scaleGrid);
         controls.add(modeBox);
 
         content.add(controls, BorderLayout.SOUTH);
     }
-//    static class MyRenderer implements Renderer.Vertex<String, String> {
-//        @Override public void paintVertex(RenderContext<String, String> rc, Layout<String, String> layout, String vertex) {
-//          GraphicsDecorator graphicsContext = rc.getGraphicsContext();
-//          Point2D center = layout.transform(vertex);
-//          String[] temp = vertex.split("#");
-//          String type=temp[1];
-//          Shape shape = null;
-//          Color color = null;
-//          System.out.println("t: "+type);
-//          if(type.equals("root")) {
-//            shape = new Ellipse2D.Double(center.getX()-10, center.getY()-10, 20, 20);
-//            color = new Color(255, 0, 0);
-//          } else if(type.equals("dim")) {
-//            shape = new Ellipse2D.Double(center.getX()-10, center.getY()-10, 20, 20);
-//            color = new Color(0, 0, 0);
-//          } else if(type.equals("val")) {
-//            shape = new Ellipse2D.Double(center.getX()-10, center.getY()-10, 20, 20);
-//            color = new Color(0, 255, 255);
-//          }else if(type.equals("par")) {
-//            shape = new Rectangle((int)center.getX()-10, (int)center.getY()-10, 20, 20);
-//            color = new Color(0, 255, 255);
-//          }
-//          else{
-//        	  color = new Color(0, 127, 0);
-//        	  shape = new Rectangle((int)center.getX()-10, (int)center.getY()-10, 20, 20);
-//          }
-//          graphicsContext.setPaint(color);
-//          graphicsContext.fill(shape);
-//        }
-//      }
     
     // CARICA L'ONTOLOGIA DAL FILE
     protected void loadModel(OntModel m) {
@@ -320,47 +262,6 @@ public class Cdt extends JApplet {
 		m.addSubModel(baseOntology);
 		m.setNsPrefix("st", NS);
 	}
-    
-    
-    // PER LA VISUALIZZAZIONE RADIALE
-    class Rings implements VisualizationServer.Paintable {
-    	
-    	Collection<Double> depths;
-    	
-    	public Rings() {
-    		depths = getDepths();
-    	}
-    	
-    	private Collection<Double> getDepths() {
-    		Set<Double> depths = new HashSet<Double>();
-    		Map<String,PolarPoint> polarLocations = radialLayout.getPolarLocations();
-    		for(String v : graph.getVertices()) {
-    			PolarPoint pp = polarLocations.get(v);
-    			depths.add(pp.getRadius());
-    		}
-    		return depths;
-    	}
-
-		public void paint(Graphics g) {
-			g.setColor(Color.lightGray);
-		
-			Graphics2D g2d = (Graphics2D)g;
-			Point2D center = radialLayout.getCenter();
-
-			Ellipse2D ellipse = new Ellipse2D.Double();
-			for(double d : depths) {
-				ellipse.setFrameFromDiagonal(center.getX()-d, center.getY()-d, 
-						center.getX()+d, center.getY()+d);
-				Shape shape = vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).transform(ellipse);
-				g2d.draw(shape);
-			}
-		}
-
-		public boolean useTransform() {
-			return true;
-		}
-    }
-    
    
     	    
     private void createTree(ExtendedIterator<OntClass> iter) {
@@ -374,7 +275,7 @@ public class Cdt extends JApplet {
 			ExtendedIterator<? extends OntResource> inst= rootClass.listInstances();
 			while (inst.hasNext()) {
 				OntResource instance = inst.next();
-				System.out.println("Dim: "+rootClass+"; INstance: " + instance.getURI());
+//				System.out.println("Dim: "+rootClass+"; INstance: " + instance.getURI());
 				plot(rootClass.getURI(), "dim", instance.getURI(), "par_dim");
 			} 
 			
@@ -442,6 +343,14 @@ public class Cdt extends JApplet {
 		//graph.addVertex(node_splitted[1]);
 		graph.addEdge(edgeFactory.create(), padre_splitted[1]+'#'+padre_type, node_splitted[1]+'#'+node_type);
 	}
+    protected void plotConstraint(String domain, String range){
+    	String[] domain_splitted = domain.split("#");
+		String[] range_splitted = range.split("#");
+		System.out.println("Domain: "+domain_splitted[1]+" Range: "+range_splitted[1]);
+//    	graph.addEdge(edgeFactory.create(), domain_splitted[1]+"#val", range_splitted[1]+"#val");
+//		graph.add
+    	
+    }
 
     /**
      * a driver for this demo
