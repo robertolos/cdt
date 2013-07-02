@@ -1,6 +1,6 @@
 package com.robertolosanno.cdt_maven;
 /*
- * 2013, Roberto Losanno 885502 Univerità degli studi di Napoli Federico II.
+ * 2013, Roberto Losanno 885502 Università degli studi di Napoli Federico II.
  * 
  * This software is open-source under the BSD license;
  * 
@@ -11,8 +11,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Paint;
 import java.awt.Polygon;
@@ -20,15 +18,8 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JApplet;
@@ -36,7 +27,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.Transformer;
@@ -54,14 +44,8 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateTree;
-import edu.uci.ics.jung.graph.Forest;
-import edu.uci.ics.jung.graph.DelegateForest;
-import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.graph.Tree;
-import edu.uci.ics.jung.graph.util.EdgeType;
-import edu.uci.ics.jung.io.graphml.GraphMetadata.EdgeDefault;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
-import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
@@ -69,9 +53,7 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
-import edu.uci.ics.jung.visualization.layout.LayoutTransition;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
-import edu.uci.ics.jung.visualization.util.Animator;
 
 
 @SuppressWarnings("serial")
@@ -81,8 +63,8 @@ public class Cdt extends JApplet {
 	 * Ontologia
 	 */
 	
-	public static final String SOURCE_URL = "http://www.semanticweb.org/roberto/ontologies/2013/5/cdt_2";
-	protected static final String SOURCE_FILE = "museum.owl";
+	public static final String SOURCE_URL = "http://www.semanticweb.org/roberto/ontologies/2013/5/museum";
+	protected static final String SOURCE_FILE = "museum2.owl";
 	public static final String NS = SOURCE_URL + "#"; // the namespace of the ontology
 	
     /**
@@ -120,8 +102,7 @@ public class Cdt extends JApplet {
         ExtendedIterator<ObjectProperty> iterProp=m.listObjectProperties();
         while(iterProp.hasNext()){
         	ObjectProperty objProp=iterProp.next();
-        	
-        	plotConstraint(objProp.getDomain().getURI(),objProp.getRange().getURI());
+        	plotConstraint(objProp);
         }
         
         treeLayout = new TreeLayout<String,String>(graph);
@@ -343,18 +324,19 @@ public class Cdt extends JApplet {
 		//graph.addVertex(node_splitted[1]);
 		graph.addEdge(edgeFactory.create(), padre_splitted[1]+'#'+padre_type, node_splitted[1]+'#'+node_type);
 	}
-    protected void plotConstraint(String domain, String range){
+    protected void plotConstraint(ObjectProperty objProp){
+    	String domain=objProp.getDomain().getURI(); 
+    	String range=objProp.getRange().getURI();
+    	String contraintType=objProp.getComment(null);
+    	
     	String[] domain_splitted = domain.split("#");
 		String[] range_splitted = range.split("#");
-		System.out.println("Domain: "+domain_splitted[1]+" Range: "+range_splitted[1]);
+		System.out.println("Type: "+contraintType+" - Domain: "+domain_splitted[1]+" - Range: "+range_splitted[1]);
 //    	graph.addEdge(edgeFactory.create(), domain_splitted[1]+"#val", range_splitted[1]+"#val");
-//		graph.add
     	
     }
 
-    /**
-     * a driver for this demo
-     */
+   
     public static void main(String[] args) {
         JFrame frame = new JFrame("CDT Viewer");
         Container content = frame.getContentPane();
